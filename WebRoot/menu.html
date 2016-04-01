@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>menu</title>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/jquery.columns.min.js"></script>
+<script src="js/jquery.jsonp.js"></script>
+<script src="uikit/js/uikit.min.js"></script>
+<script src="uikit/js/components/datepicker.js"></script>
+<script src="uikit/js/components/form-select.js"></script>
+<link rel="stylesheet" href="css/classic.css">
+<script>
+	$(document).ready(function() {
+
+	});
+</script>
+<link rel="stylesheet" href="uikit/css/uikit.css">
+<link rel="stylesheet" href="uikit/css/components/datepicker.css">
+<link rel="stylesheet" href="uikit/css/uikit.docs.min.css">
+<link rel="stylesheet" href="uikit/css/docs.css">
+</head>
+<body>
+
+	<button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-1'}">菜单</button>
+
+	<div id="offcanvas-1" class="uk-offcanvas">
+
+		<div class="uk-offcanvas-bar">
+			<h3 class="uk-panel-title"></h3>
+			<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
+				<!--<li><a href="">Item</a></li>
+				<li class="uk-active"><a href="">Active</a></li>
+
+				<li class="uk-parent"><a href="#">Parent</a>
+					<ul class="uk-nav-sub">
+						<li><a href="">Sub item</a></li>
+						<li><a href="">Sub item</a>
+							<ul>
+								<li><a href="">Sub item</a></li>
+								<li><a href="">Sub item</a></li>
+							</ul></li>
+					</ul></li>
+
+				<li class="uk-parent"><a href="#">Parent</a>
+					<ul class="uk-nav-sub">
+						<li><a href="">Sub item</a></li>
+						<li><a href="">Sub item</a></li>
+					</ul></li>
+
+				<li><a href="">Item</a></li>-->
+
+				<li class="uk-nav-header">数据查询</li>
+				<li class="uk-parent"><a href="#">生产投入</a>
+					<ul class="uk-nav-sub">
+						<li><a target="content" href="manager/sctrb_check.html">生产投入表异常值检测</a></li>
+						<li><a target="content" href="manager/Sctrb_log.html">生产投入表日志</a></li>
+					</ul></li>
+				<li class="uk-parent"><a href="#">蔬菜采收</a>
+					<ul class="uk-nav-sub">
+						<li><a target="content"
+							href="manager/Sccsb_UploadSummary.html">蔬菜采收表上报信息汇总</a></li>
+					</ul></li>
+				
+				<li class="uk-nav-header">系统设置</li>
+				<li><a target="content" href="manager/Make_Inventory.html">盘库设置</a></li>
+			</ul>
+
+		</div>
+</body>
+</html>

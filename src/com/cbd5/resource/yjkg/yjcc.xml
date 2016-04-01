@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yjcc_export>
+    <sheet>预计出菜统计</sheet>
+    <col>28</col>
+    <title>农场精品菜库存及预计出菜统计</title>
+    <caption_0>
+        <row_0>品名</row_0>
+        <row_1>品类</row_1>
+        <row_2>北京农场</row_2>
+        <row_3>上海农场</row_3>
+        <row_4>广州农场</row_4>
+        <row_5>惠州农场</row_5>
+        <row_6>成都农场</row_6>
+        <row_7>山东农场</row_7>
+        <row_8>云南农场</row_8>
+        <row_9>扬州农场</row_9>
+        <row_10>长沙农场</row_10>
+        <row_11>合计</row_11>
+    </caption_0>
+    <caption_1>
+        <row_0>当日库存</row_0>
+        <row_1>当日预计出菜</row_1>
+        <row_2>下日预计出菜</row_2>
+    </caption_1>
+</yjcc_export>

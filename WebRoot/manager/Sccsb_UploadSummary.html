@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>蔬菜采收表上报信息汇总</title>
+<script src="../js/jquery-1.11.2.min.js"></script>
+<script src="../js/jquery.columns.min.js"></script>
+<script src="../js/jquery.jsonp.js"></script>
+<script src="../uikit/js/uikit.min.js"></script>
+<script src="../uikit/js/components/datepicker.js"></script>
+<script src="../uikit/js/components/form-select.js"></script>
+<script src="../uikit/js/components/pagination.js"></script>
+<script src="../uikit/js/components/notify.js"></script>
+<link rel="stylesheet" href="../css/classic.css">
+<script>
+	$(document)
+			.ready(
+					function() {
+						$("#submit")
+						.click(
+								function() {
+									var time = $("#ft").val();
+									if (time == '') {
+										UIkit.notify("请选择查询日期!", {status:'warning'});
+										return;
+									}
+									var requestURL = "/farmserver/api/cszs/up_summary?time="+time;
+									$.ajax({
+										type : "GET",
+										url : requestURL,
+										async : true,
+										cache : false,
+										dataType:'text',
+										success : function(resultData) {
+											$("#grid").html(resultData);
+										}
+									});
+
+								});				
+					});
+</script>
+<link rel="stylesheet" href="../uikit/css/uikit.css">
+<link rel="stylesheet" href="../uikit/css/components/datepicker.css">
+<link rel="stylesheet" href="../uikit/css/uikit.docs.min.css">
+<link rel="stylesheet" href="../uikit/css/docs.css">
+</head>
+<body>
+		<div class="tm-main uk-width-medium-3-4">
+		<form class="uk-form">
+
+			<fieldset data-uk-margin>
+				<legend>查询蔬菜采收文件上报汇总信息</legend>
+				<div class="uk-form-row">
+				<h3 class="tm-article-subtitle">选择日期</h3>
+				 <input type="text" data-uk-datepicker="{format:'YYYY/MM/DD'}" id='ft'>				
+				<button class="uk-button uk-button-primary" type="button" id="submit">提交</button></div>
+			</fieldset>
+
+		</form>
+	</div>
+	<br>
+	<div class="uk-overflow-container" id="grid">
+	</div>
+</body>
+</html>

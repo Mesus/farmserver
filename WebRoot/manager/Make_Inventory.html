@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>盘库设置</title>
+<script src="../js/jquery-1.11.2.min.js"></script>
+<script src="../js/jquery.columns.min.js"></script>
+<script src="../js/jquery.jsonp.js"></script>
+<script src="../uikit/js/uikit.min.js"></script>
+<script src="../uikit/js/components/datepicker.js"></script>
+<script src="../uikit/js/components/form-select.js"></script>
+<script src="../uikit/js/components/pagination.js.js"></script>
+<link rel="stylesheet" href="../css/classic.css">
+<script>
+	$(document).ready(function() {
+		var requestURL = "/farmserver/api/config/q";
+		$.ajax({
+			type : "GET",
+			url : requestURL,
+			async : true,
+			cache : false,
+			dataType : 'text',
+			success : function(rst) {
+				if(rst == "Y"){
+					$("#start").css('display','block');
+				}else{
+					$("#finish").css('display','block');
+				}
+			}
+		});
+		$("#submit").click(function() {
+			var time = $("#ft").val();
+			if (time == '') {
+				UIkit.modal.alert('请选择要设置的盘库日期!');
+				return;
+			}
+			UIkit.modal.confirm("确定开始设置盘库数据?", function() {
+				// 点击OK确认后开始执行
+				var requestURL = "/farmserver/api/config/s?time=" + time;
+				$.ajax({
+					type : "GET",
+					url : requestURL,
+					async : true,
+					cache : false,
+					dataType : 'text',
+					success : function(resultData) {
+						UIkit.modal.alert(resultData);
+					}
+				});
+			});
+
+		});
+		$("#finish").click(function() {
+			UIkit.modal.confirm("确定开始设置盘库数据?", function() {
+				// 点击OK确认后开始执行
+				var requestURL = "/farmserver/api/config/s";
+				$.ajax({
+					type : "GET",
+					url : requestURL,
+					async : true,
+					cache : false,
+					dataType : 'text',
+					success : function(resultData) {
+						UIkit.modal.alert(resultData);
+					}
+				});
+			});
+
+		});
+	});
+</script>
+<link rel="stylesheet" href="../uikit/css/uikit.css">
+<link rel="stylesheet" href="../uikit/css/components/datepicker.css">
+<link rel="stylesheet" href="../uikit/css/uikit.docs.min.css">
+<link rel="stylesheet" href="../uikit/css/docs.css">
+</head>
+<body>
+	<div class="tm-main uk-width-medium-3-4" id="start" style='display:none'>
+		<form class="uk-form">
+
+			<fieldset data-uk-margin>
+				<legend>盘库状态设置</legend>
+				<div class="uk-form-row">
+					<h3 class="tm-article-subtitle">请设置本次盘库日期</h3>
+					<input type="text" data-uk-datepicker="{format:'YYYY/MM/DD'}"
+						id='ft'>
+			</fieldset>
+
+		</form>
+		<br>
+		<br>
+		<button
+			class="uk-button uk-button-danger uk-button-large uk-width-1-1"
+			type="button" id="submit">保存</button>
+	</div>
+	<br><br><br><br><br><br>
+		<div class="tm-main uk-width-medium-3-4" id="finish" style="display:none">
+		<h3 class="tm-article-subtitle">请点击盘库完成设置本次盘库已完成</h3>
+		<br><br>
+				<button
+			class="uk-button uk-button-success uk-button-large uk-width-1-1"
+			type="button" id="submit">盘库完成</button>
+		</div>
+</body>
+</html>

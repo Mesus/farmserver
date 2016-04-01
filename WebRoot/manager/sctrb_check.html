@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>生产投入表异常检测</title>
+<script src="../js/jquery-1.11.2.min.js"></script>
+<script src="../js/jquery.columns.min.js"></script>
+<script src="../js/jquery.jsonp.js"></script>
+<script src="../uikit/js/uikit.min.js"></script>
+<script src="../uikit/js/components/datepicker.js"></script>
+<script src="../uikit/js/components/form-select.js"></script>
+<link rel="stylesheet" href="../css/classic.css">
+<script>
+	$(document)
+			.ready(
+					function() {
+						$("#submit")
+						.click(
+								function() {
+									var type = $("select[name=type]").find("option:selected").val();
+									var farm = $("select[name=farm]").find("option:selected").val();
+									var time = $("#ft").val();
+
+									var requestURL = "/farmserver/api/sctrbchk/q?type="+type+"&farm="+farm+"&time="+time;
+									//var requestURL = "/farmserver/api/sctr_stat/w?farm=成都&time=2016010600@2016010624&callback=?";
+									$.ajax({
+										type : "GET",
+										url : requestURL,
+										async : true,
+										cache : false,
+										dataType:'jsonp',
+										success : function(resultData,
+												textStatus) {
+											
+												var arr = resultData.arr;
+												$('#columns').columns({data:arr});
+											
+										}
+									});
+
+								});					
+					});
+</script>
+<link rel="stylesheet" href="../uikit/css/uikit.css">
+<link rel="stylesheet" href="../uikit/css/components/datepicker.css">
+<link rel="stylesheet" href="../uikit/css/uikit.docs.min.css">
+<link rel="stylesheet" href="../uikit/css/docs.css">
+</head>
+<body>
+	<div class="tm-main uk-width-medium-3-4">
+		<form class="uk-form">
+
+			<fieldset data-uk-margin>
+				<legend>库存负值表</legend>
+				<h3 class="tm-article-subtitle">选择地区</h3>
+				<div class="uk-form-row">
+				<select name="farm">
+					<option value="北京">北京</option>
+					<option value="上海">上海</option>
+					<option value="广州">广州</option>
+					<option value="扬州">扬州</option>
+					<option value="惠州">惠州</option>
+					<option value="山东">山东</option>
+					<option value="云南">云南</option>
+					<option value="成都">成都</option>					
+				</select>
+				</div>
+				<br>
+				<div class="uk-form-row">
+				<h3 class="tm-article-subtitle">选择类型</h3>
+				<select name="type">
+					<option value="1">种子</option>
+					<option value="2">生物制剂</option>
+					<option value="3">肥料</option>
+					<option value="4">物资</option>
+				</select>
+				</div>
+				<br>
+				<div class="uk-form-row">
+				<h3 class="tm-article-subtitle">选择日期</h3>
+				 <input type="text" data-uk-datepicker="{format:'YYYY/MM/DD'}" id='ft'>	</div>			
+				<button class="uk-button uk-button-primary" type="button" id="submit">提交</button>
+			</fieldset>
+
+		</form>
+	</div>
+	<br><br>
+	
+	<div id="columns"></div>
+</body>
+</html>

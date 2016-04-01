@@ -1,0 +1,4 @@
+api/retrieve/jddmandjdmc
+api/retrieve/scmcandpl?pmdm=0001
+api/retrieve/trjcb_yxzclsj?condition=phz&time=2016012800@2016012824
+api/retrieve/func?name=1&field={"field":"wd","func":"avg"}&where={"yhm":"admin"}&time=2016012500&2016012824

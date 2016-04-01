@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>出入库数据</title>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/jquery.columns.min.js"></script>
+<script src="js/jquery.jsonp.js"></script>
+<script src="uikit/js/uikit.min.js"></script>
+<link rel="stylesheet" href="css/classic.css">
+<script>
+	$(document)
+			.ready(
+					function() {
+						var dkh = "";
+						var clsj = "";
+						var wd = "";
+						var sd = "";
+						$("#u_dkh").keyup(function(){
+							dkh = $("#u_dkh").val();
+						});
+						$("#u_clsj").keyup(function(){
+							clsj = $("#u_clsj").val();
+						});
+						$("#u_wd").keyup(function(){
+							wd = $("#u_wd").val();
+						});
+						$("#u_sd").keyup(function(){
+							sd = $("#u_sd").val();
+						});						
+						var requestURL = "/farmserver/api/alter/list?name=1&jddm=010001&time=2016101212@2016101212";
+						$.ajax({
+							type : "GET",
+							url : requestURL,
+							async : true,
+							cache : false,
+							dataType:'jsonp',
+							success : function(resultData,
+									textStatus) {
+								var arr = resultData.arr;
+								$('#columns').columns({data:arr});
+								
+							}
+						});
+						$("#add")
+								.click(
+										function() {
+											var j=[{"dkh":$("#dkh").val(),"clsj":$("#clsj").val(),"wd":$("#wd").val(),"sd":$("#sd").val(),"jddm":$("select").find("option:selected").val()}];
+											var json = JSON.stringify(j);
+											//alert(json);
+											var requestURL = "/farmserver/api/alter/ins?name=1&user=admin&form="+json;
+											$.ajax({
+												type : "GET",
+												url : requestURL,
+												async : true,
+												cache : false,
+												dataType:'jsonp',
+												success : function(resultData,
+														textStatus) {
+													
+												}
+											});
+
+										});
+						$("#del")
+						.click(
+								function() {
+									var name = $("#bh").val();
+									var xh = $("#xh").val();
+									var yhm = $("#yhm").val();
+									var requestURL = "/farmserver/api/alter/del?name="+name+"&id="+xh+"&user="+yhm;
+									$.ajax({
+										type : "GET",
+										url : requestURL,
+										async : true,
+										cache : false,
+										dataType:'jsonp',
+										success : function(resultData,
+												textStatus) {
+											
+										}
+									});
+
+								});
+						$("#upd")
+						.click(
+								function() {
+									var j="[{";
+									if(dkh != ""){
+										j += "'dkh':'"+dkh+"',";
+									}
+									if(clsj != ""){
+										j += "'clsj':'"+clsj+"',";
+									}
+									if(wd != ""){
+										j += "'wd':'"+wd+"',";
+									}
+									if(sd != ""){
+										j += "'sd':'"+sd+"',";
+									}		
+									j += "'xh':'"+$("#u_xh").val()+"'";
+									j += "}]";
+									//j +=[{"dkh":$("#u_dkh").val(),"clsj":$("#u_clsj").val(),"wd":$("#u_wd").val(),"sd":$("#u_sd").val(),"id":$("#u_xh").val()}];
+									var json = JSON.stringify(j);
+									//alert(json);
+									var name = $("#u_bh").val();
+									var yhm = $("#u_yhm").val();
+									var requestURL = "/farmserver/api/alter/upd?name="+name+"&form="+j+"&user="+yhm;
+									$.ajax({
+										type : "GET",
+										url : requestURL,
+										async : true,
+										cache : false,
+										dataType:'jsonp',
+										success : function(resultData,
+												textStatus) {
+											
+										}
+									});
+
+								});						
+					});
+</script>
+<link rel="stylesheet" href="uikit/css/uikit.css">
+</head>
+<body>
+	<div class="tm-main uk-width-medium-3-4">
+		<form class="uk-form">
+
+			<fieldset data-uk-margin>
+				<legend>温湿度提交</legend>
+				<input type="text" placeholder="地块/冷库号" id="dkh"> 
+				<input type="text" placeholder="测量时间" id="clsj"> 
+				<input type="text" placeholder="温度" id="wd">
+				<input type="text" placeholder="湿度" id="sd"> 
+				<select>
+					<option value="010001">北京狮子营农场</option>
+					<option value="010002">扬州宝应农场</option>
+				</select>
+				<button class="uk-button uk-button-primary" type="button" id="add">提交</button>
+			</fieldset>
+
+		</form>
+	</div>
+	<br>
+		<div class="tm-main uk-width-medium-3-4">
+		<form class="uk-form">
+			<fieldset data-uk-margin>
+				<legend>温湿度删除</legend>
+				<input type="text" placeholder="表号" id="bh"> 
+				<input type="text" placeholder="序号" id="xh"> 
+				<input type="text" placeholder="用户名" id="yhm">
+				<button class="uk-button uk-button-primary" type="button" id="del">提交</button>
+			</fieldset>
+
+		</form>
+	</div>
+	<br>
+		<div class="tm-main uk-width-medium-3-4">
+		<form class="uk-form">
+
+			<fieldset data-uk-margin>
+				<legend>温湿度修改</legend>
+				<input type="text" placeholder="表号" id="u_bh"> 
+				<input type="text" placeholder="用户名" id="u_yhm"> 
+				<input type="text" placeholder="序号" id="u_xh"> 
+				<input type="text" placeholder="地块/冷库号" id="u_dkh"> 
+				<input type="text" placeholder="温度" id="u_wd">
+				<input type="text" placeholder="湿度" id="u_sd"> 
+				<input type="text" placeholder="测量时间" id="u_clsj"> 
+				<button class="uk-button uk-button-primary" type="button" id="upd">提交</button>
+			</fieldset>
+
+		</form>
+	</div>
+	<br><br>
+	<legend><h2>温湿度列表</h2></legend>
+	<div id="columns"></div>
+</body>
+</html>

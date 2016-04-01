@@ -1,0 +1,33 @@
+[
+  {
+    "id": "dashboard",
+    "title": "仪表盘",
+    "url": "html/dashboard.html",
+    "icon": "fa fa-home",
+    "open": "true"
+  },
+  {
+    "id": "DEMO",
+    "title": "系统设置",
+    "children": [
+      {
+        "id": "DEMO_CRUD",
+        "title": "盘库设置",
+        "url": "farm/crud.html",
+        "open": "true"
+      }
+    ]
+  },
+  {
+    "id": "DATA",
+    "title": "数据管理",
+    "children": [
+      {
+        "id": "filecrud",
+        "title": "上报文件管理",
+        "url": "farm/loop.html",
+        "open": "true"
+      }
+    ]
+  }  
+]

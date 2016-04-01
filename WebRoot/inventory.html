@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>出入库数据</title>
+<script src="uikit/js/uikit.min.js"></script>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/jquery.columns.min.js"></script>
+<script src="js/jquery.jsonp.js"></script>
+<link rel="stylesheet" href="css/classic.css">
+<script>
+	$(document)
+			.ready(
+					function() {
+						$("#total")
+								.click(
+										function() {
+											var requestURL = "/farmserver/api/sctrzb/q?type=1&farm=北京&time=2016011000@2016011024&callback=?";
+											//var requestURL = "/farmserver/api/sctr_stat/w?farm=成都&time=2016010600@2016010624&callback=?";
+											$.ajax({
+												type : "GET",
+												url : requestURL,
+												async : true,
+												cache : false,
+												dataType:'jsonp',
+												success : function(resultData,
+														textStatus) {
+													$('#columns1').css('display','none');
+													$('#columns2').css('display','none');
+													$('#columns').css('display','block');
+													var arr = resultData.arr;
+													$('#columns').columns({data:arr});
+													
+												}
+											});
+
+										});
+						$("#in")
+						.click(
+								function() {
+									var requestURL = "/farmserver/api/sctr/w?sheet=11&time=2015120100@2015120324&callback=?";
+									
+									$.ajax({
+										type : "GET",
+										url : requestURL,
+										async : false,
+										cache : false,
+										dataType:'jsonp',
+										success : function(resultData,
+												textStatus) {
+											$('#columns').css('display','none');
+											$('#columns2').css('display','none');
+											$('#columns1').css('display','block');
+													var arr = resultData.arr;
+													$('#columns1').columns({data:arr});
+										}
+									});
+
+								});
+						$("#out")
+						.click(
+								function() {
+									var requestURL = "/farmserver/api/sctr_stat/w?farm=北京&time=2015113000@2015113024&callback=?";
+									$.ajax({
+										type : "GET",
+										url : requestURL,
+										async : false,
+										cache : false,
+										dataType:'jsonp',
+										success : function(resultData,
+												textStatus) {
+											$('#columns1').css('display','none');
+											$('#columns').css('display','none');
+											$('#columns2').css('display','block');
+													var arr = resultData.arr;
+													$('#columns2').columns({data:arr});
+										}
+									});
+
+								});						
+					});
+</script>
+<link rel="stylesheet" href="uikit/css/uikit.css">
+</head>
+<body>
+	<div class="uk-button-dropdown" data-uk-dropdown>
+		<table class="uk-table uk-text-nowrap">
+			<tbody>
+				<tr>
+					<td><button id="total" class="uk-button uk-button-primary"
+							type="button">总表</button></td>
+					<td><button id="out" class="uk-button uk-button-primary"
+							type="button">出库</button></td>
+					<td><button id="in" class="uk-button uk-button-primary"
+							type="button">入库</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+<div id="columns"></div>
+<div id="columns1"></div>
+<div id="columns2"></div>
+</body>
+</html>
